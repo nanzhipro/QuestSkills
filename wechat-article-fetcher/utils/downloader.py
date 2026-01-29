@@ -18,12 +18,22 @@ class Downloader:
 
     def download_image(self, url, folder='images'):
         if not url: return None
+        
+        # Handle protocol-relative URLs
+        if url.startswith('//'):
+            url = 'https:' + url
+            
         if not os.path.exists(folder):
             os.makedirs(folder)
         
         url_hash = hashlib.md5(url.encode()).hexdigest()
+        # WeChat images often have wx_fmt or tp parameters
         fmt_match = re.search(r'wx_fmt=([a-z]+)', url)
+        if not fmt_match:
+            fmt_match = re.search(r'tp=([a-z]+)', url)
+            
         ext = fmt_match.group(1) if fmt_match else 'jpg'
+        if ext == 'jpeg': ext = 'jpg'
         
         filename = f"{url_hash}.{ext}"
         filepath = os.path.join(folder, filename)
@@ -31,9 +41,10 @@ class Downloader:
         if not os.path.exists(filepath):
             try:
                 req = urllib.request.Request(url, headers={'User-Agent': self.user_agent})
-                with urllib.request.urlopen(req) as response:
+                with urllib.request.urlopen(req, timeout=15) as response:
                     with open(filepath, 'wb') as f:
                         f.write(response.read())
-            except Exception:
+            except Exception as e:
+                # print(f"Error downloading image {url}: {e}")
                 return None
         return filepath
