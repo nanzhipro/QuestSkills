@@ -1,0 +1,4 @@
+interface:
+  display_name: "中文成稿直排"
+  short_description: "最小改动原意，输出带稳定小标题的可发布成稿"
+  default_prompt: "使用 $wechat-ready-article-draft 在尽量不改变原意的前提下，把这段中文整理为可直接发布的成稿，并优化开头与结构。"
