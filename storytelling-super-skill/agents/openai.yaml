@@ -1,0 +1,4 @@
+interface:
+  display_name: "叙事升维教练"
+  short_description: "Sharpen stories with RENT, tension, and anti-mid coaching"
+  default_prompt: "Use $storytelling-super-skill to turn this draft into a sharper, more human story with a clearer big idea, stronger RENT score, and less AI-sounding sameness."

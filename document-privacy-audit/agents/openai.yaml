@@ -1,0 +1,4 @@
+interface:
+  display_name: "文档隐私审计"
+  short_description: "分析 PDF/Office 文件，抽取全文，识别隐私信息并汇总报告"
+  default_prompt: "对给定 PDF/Office 文档做全文抽取与检索，识别 PII/敏感信息并输出审计摘要与明细。"
